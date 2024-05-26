@@ -3,16 +3,12 @@ package ru.job4j.cars.repository;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import ru.job4j.cars.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Executors;
 
 
 @AllArgsConstructor
@@ -91,7 +87,9 @@ public class UserRepository {
             session.getTransaction().begin();
             Query<User> query = session.createQuery(
                     "from User order by id");
-            listUsers.addAll(query.list());
+            for (var user : query.list()) {
+                listUsers.add(user);
+            }
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -136,7 +134,9 @@ public class UserRepository {
             Query<User> query = session.createQuery(
                             "from User where login like :login")
                     .setParameter("login", "%" + key + "%");
-            listUsers.addAll(query.list());
+            for (var user : query.list()) {
+                listUsers.add(user);
+            }
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
