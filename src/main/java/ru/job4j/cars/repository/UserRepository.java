@@ -86,10 +86,8 @@ public class UserRepository {
         try {
             session.getTransaction().begin();
             Query<User> query = session.createQuery(
-                    "from User order by id");
-            for (var user : query.list()) {
-                listUsers.add(user);
-            }
+                    "from User order by id", User.class);
+            listUsers = query.list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -109,7 +107,7 @@ public class UserRepository {
         try {
             session.getTransaction().begin();
             Query<User> query = session.createQuery(
-                            "from User where id = :id")
+                            "from User where id = :id", User.class)
                     .setParameter("id", userId);
             optionalUser = query.uniqueResultOptional();
             session.getTransaction().commit();
@@ -132,11 +130,9 @@ public class UserRepository {
         try {
             session.getTransaction().begin();
             Query<User> query = session.createQuery(
-                            "from User where login like :login")
+                            "from User where login like :login", User.class)
                     .setParameter("login", "%" + key + "%");
-            for (var user : query.list()) {
-                listUsers.add(user);
-            }
+            listUsers = query.list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -157,7 +153,7 @@ public class UserRepository {
         try {
             session.getTransaction().begin();
             Query<User> query = session.createQuery(
-                            "from User where login = :login")
+                            "from User where login = :login", User.class)
                     .setParameter("login", login);
             optionalUser = query.uniqueResultOptional();
             session.getTransaction().commit();
