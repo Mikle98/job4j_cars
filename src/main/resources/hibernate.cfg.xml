@@ -4,6 +4,10 @@
         "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <property name="hibernate.connection.defaultNChar">true</property>
+        <property name="hibernate.connection.useUnicode">true</property>
+        <property name="hibernate.connection.CharSet">windows-1251</property>
+        <property name="hibernate.connection.characterEncoding">windows-1251</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/job4j_car</property>
         <property name="hibernate.connection.username">postgres</property>
@@ -14,5 +18,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
         <mapping class="ru.job4j.cars.model.User" />
+        <mapping class="ru.job4j.cars.model.Post" />
+        <mapping class="ru.job4j.cars.model.PriceHistory" />
     </session-factory>
 </hibernate-configuration>
