@@ -25,6 +25,7 @@ public class HbmRun {
             var post = new Post();
             post.setDescription("desc1");
             post.setAutoUserId(user);
+            post.setParticipates(List.of(user));
             create(post, sf);
             var priceHistory = new PriceHistory();
             priceHistory.setAfter(0);
@@ -36,6 +37,7 @@ public class HbmRun {
                     .setParameter("fId", post.getId())
                     .getSingleResult();
             stored.getPriceHistory().forEach(System.out::println);
+            stored.getParticipates().forEach(System.out::println);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
